@@ -1,0 +1,348 @@
+<style>
+  .banner-section {
+    width: 100%;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+  .btn {
+    text-transform: uppercase;
+    font-weight: 400;
+    display: flex;
+    padding: 5px;
+    min-width: 200px;
+    width: 14vw;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f5f5f5;
+    padding: 10px 100px;
+    width: 100%;
+    font-size: 1vw;
+    font-weight: 400;
+  }
+  .navbar .nav-right button,
+  .navbar .mobile-menu button {
+    background: #fff544;
+  }
+  .navbar .logo {
+    width: 10vw;
+  }
+  .logo-container {
+    max-width: 10vw;
+    min-width: 80px;
+  }
+  .hero {
+    position: absolute;
+    bottom: 10vh;
+    left: 80px;
+    width: 29vw;
+    min-width: 400px;
+  }
+  .hero-bottom-bar{
+    background:#F5F5F5;
+    text-align:center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding:2px;
+  }
+
+  /* Hamburger Menu - Hidden on Desktop */
+  .hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 101;
+  }
+  .hamburger-icon, .close-menu-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .close-menu-icon {
+    display: none;
+  }
+  .navbar.menu-open .hamburger-icon {
+    display: none;
+  }
+  .navbar.menu-open .close-menu-icon {
+    display: block;
+  }
+
+  /* Mobile Menu Panel */
+  .mobile-menu {
+    display: none;
+  }
+
+  /* Mobile Responsive Styles */
+  @media screen and (max-width: 768px) {
+    .banner-section {
+      background-image: url('{{ "mobile-bg.png" | asset_url }}') !important;
+      background-position: center;
+      height: 520px;
+    }
+    
+    .navbar {
+      padding: 12px 15px;
+      font-size: 12px;
+      position: relative;
+      justify-content: center;
+    }
+    
+    /* Hamburger visible on mobile */
+    .hamburger-btn {
+      display: flex;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    /* Logo centered */
+    .logo-container {
+      max-width: 120px;
+      min-width: 80px;
+      order: 0;
+    }
+    
+    /* Hide desktop nav items */
+    .navbar .nav-middle,
+    .navbar .nav-right {
+      display: none;
+    }
+    
+    /* Mobile Menu Panel */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #f5f5f5;
+      padding: 15px 20px;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      border-top: 1px solid #ddd;
+    }
+    .navbar.menu-open .mobile-menu {
+      display: flex;
+    }
+    .mobile-menu p {
+      margin: 0;
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+    }
+    .mobile-menu .btn {
+      min-width: 180px;
+      width: auto;
+      padding: 10px 20px;
+      font-size: 12px;
+    }
+    
+    .hero {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      bottom: 50px;
+      width: 100%;
+      min-width: unset;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 30px;
+    }
+    .hero h1 {
+      font-size: 28px;
+      margin: 0 0 10px 0;
+      font-weight: 600;
+    }
+    .hero p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      max-width: 280px;
+    }
+    .hero .btn {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 160px;
+      padding: 12px 25px;
+      font-size: 13px;
+    }
+    .hero-bottom-bar {
+      padding: 8px 10px;
+    }
+    .hero-bottom-bar p {
+      font-size: 9px;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .navbar {
+      padding: 10px 12px;
+    }
+    .hero {
+      bottom: 50px;
+    }
+    .hero h1 {
+      font-size: 20px;
+    }
+    .hero p {
+      font-size: 11px;
+    }
+    .btn {
+      min-width: 100px;
+      font-size: 10px;
+      padding: 6px 10px;
+    }
+  }
+</style>
+
+<section class="banner-section" style="background-image: url({{ 'banner-bg.png' | asset_url }})">
+  {% comment %} Navbar {% endcomment %}
+  <nav class="navbar" id="mainNavbar">
+    <!-- Hamburger Button (mobile only) -->
+    <button class="hamburger-btn" onclick="toggleMobileMenu()">
+      <svg class="hamburger-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 6H21M3 12H21M3 18H21" stroke="black" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <svg class="close-menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 6L18 18M6 18L18 6" stroke="black" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    {% comment %} Logo {% endcomment %}
+    <div class="logo-container">
+      {% if section.settings.logo.src %}
+        <img src="{{ section.settings.logo }}" alt="logo" width="120" height="40">
+      {% else %}
+        <img src="{{ 'logo.svg' | asset_url }}" alt="logo" width="120" height="40">
+      {% endif %}
+    </div>
+
+    {% comment %} Navbar Middle Text (desktop) {% endcomment %}
+    <div class="nav-middle">
+      <p>{{ section.settings['middle-text'] | default: 'Find the ideal gift for your loved ones.' }}</p>
+    </div>
+
+    {% comment %} Navbar right button (desktop) {% endcomment %}
+    <div class="nav-right">
+      <button class="btn">
+        {{ section.settings['Navbar-btn'] | default: 'Choose Gift' }}
+        <svg width="20" height="30" viewBox="0 0 68 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 12.7279L1.96701e-07 12.7279L-1.96701e-07 16.7279L2 16.7279L2 14.7279L2 12.7279ZM67.4142 16.1421C68.1953 15.3611 68.1953 14.0947 67.4142 13.3137L54.6863 0.585774C53.9052 -0.195275 52.6389 -0.195275 51.8579 0.585774C51.0768 1.36682 51.0768 2.63315 51.8579 3.4142L63.1716 14.7279L51.8579 26.0416C51.0768 26.8227 51.0768 28.089 51.8579 28.87C52.6389 29.6511 53.9052 29.6511 54.6863 28.87L67.4142 16.1421ZM2 14.7279L2 16.7279L66 16.7279L66 14.7279L66 12.7279L2 12.7279L2 14.7279Z" fill="black"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu">
+      <p>{{ section.settings['middle-text'] | default: 'Get started with your "Mi Solo" kit' }}</p>
+      <button class="btn" style="background: #fff544;">
+        {{ section.settings['Navbar-btn'] | default: 'Choose Gift' }}
+        <svg width="20" height="30" viewBox="0 0 68 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 12.7279L1.96701e-07 12.7279L-1.96701e-07 16.7279L2 16.7279L2 14.7279L2 12.7279ZM67.4142 16.1421C68.1953 15.3611 68.1953 14.0947 67.4142 13.3137L54.6863 0.585774C53.9052 -0.195275 52.6389 -0.195275 51.8579 0.585774C51.0768 1.36682 51.0768 2.63315 51.8579 3.4142L63.1716 14.7279L51.8579 26.0416C51.0768 26.8227 51.0768 28.089 51.8579 28.87C52.6389 29.6511 53.9052 29.6511 54.6863 28.87L67.4142 16.1421ZM2 14.7279L2 16.7279L66 16.7279L66 14.7279L66 12.7279L2 12.7279L2 14.7279Z" fill="black"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>{{ section.settings['Hero-title'] | default: 'The Gift Guide' }}</h1>
+    <p>
+      {{
+        section.settings['Hero-para']
+        | default: 'Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.'
+      }}
+    </p>
+
+    <button class="btn" style="background: black ; color: white;">
+      {{ section.settings['Hero-btn-txt'] | default: 'Shop Now' }}
+      <svg width="20" height="26" viewBox="0 0 64 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.76563 11.2357L9.72209e-05 11.2357L9.68518e-05 14.7667L1.76562 14.7667L1.76563 11.2357ZM63.0591 14.2496C63.7485 13.5602 63.7485 12.4423 63.0591 11.7528L51.8233 0.517056C51.1338 -0.172425 50.016 -0.172426 49.3265 0.517056C48.637 1.20654 48.637 2.32441 49.3265 3.01389L59.3138 13.0012L49.3265 22.9886C48.637 23.678 48.637 24.7959 49.3265 25.4854C50.016 26.1749 51.1338 26.1749 51.8233 25.4854L63.0591 14.2496ZM1.76562 14.7667L61.8106 14.7668L61.8106 11.2357L1.76563 11.2357L1.76562 14.7667Z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero-bottom-bar">
+    <p>{{ section.settings.Hero-bottom-text | default:'SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL' }}</p>
+  </div>
+</section>
+
+<script>
+  function toggleMobileMenu() {
+    const navbar = document.getElementById('mainNavbar');
+    navbar.classList.toggle('menu-open');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Banner",
+  "tag": "section",
+  "class": "custom-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "middle-text",
+      "label": "Middle Navbar text"
+    },
+    {
+      "type": "text",
+      "id": "Navbar-btn",
+      "label": "Navbar button Text"
+    },
+    {
+      "type": "text",
+      "id": "Hero-title",
+      "label": "Hero Title"
+    },
+    {
+      "type": "text",
+      "id": "Hero-para",
+      "label": "Hero paragraph"
+    },
+    {
+      "type": "text",
+      "id": "Hero-btn-txt",
+      "label": "Hero Button Text"
+    },
+     {
+      "type": "text",
+      "id": "Hero-bottom-text",
+      "label": "Hero Bottom Text"
+    }
+  ],
+  "default": {
+    "settings": {
+      "middle-text": "Find the ideal gift for your loved ones."
+    }
+  }
+}
+{% endschema %}

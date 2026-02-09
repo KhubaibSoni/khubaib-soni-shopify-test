@@ -6,19 +6,20 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-
-    "Banner_jsre1439":{
-    "type":"banner"
+    "Banner_jsre1439": {
+      "type": "banner",
+      "settings": {}
     },
-     "Grid_jsre1529":{
-    "type":"Product-Grid"
-    },
-  
+    "Grid_jsre1529": {
+      "type": "Product-Grid",
+      "settings": {}
+    }
   },
   "order": [
     "Banner_jsre1439",
-    "Grid_jsre1529",
+    "Grid_jsre1529"
   ]
 }
